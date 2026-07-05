@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Dot, Eye, Github, Mail, PhoneIcon, Briefcase,
-  GraduationCap, Award, CheckCircle2,ExternalLink, Code2, Sparkles, MapPin
+  GraduationCap, Award, CheckCircle2,ExternalLink, Code2, MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "../navigation";
@@ -637,7 +637,7 @@ export const HireMe = () => {
     <section className="max-w-4xl m-auto px-6 w-full my-24">
       <div className="border border-neutral-200/60 rounded-3xl p-10 md:p-16 text-center bg-[#FAFAFA] space-y-6">
         <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-[#1F1F1F]">
-          Let's build together.
+          Let&apos;s build together.
         </h2>
         <p className="text-base sm:text-lg text-[#5F6368] max-w-xl m-auto leading-relaxed">
           Ready to collaborate on polished interfaces, thoughtful user experiences, and reliable web development.
