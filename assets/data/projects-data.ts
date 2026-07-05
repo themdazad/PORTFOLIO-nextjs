@@ -29,22 +29,5 @@
      view: "",
      github: "",
    },
-   {
-     _id: 4,
-     title: "Technical Club Logo",
-     description: "",
-     skills: ["Graphic Designing", "Logo Design"],
-     image: "/project-thumbnails/techkshitiz.png",
-     view: "",
-     github: "",
-   },
-   {
-     _id: 5,
-     title: "College Logo",
-     description: "Won 1st prize",
-     skills: ["", "Logo Design"],
-     image: "/project-thumbnails/gecsiwan-logo.png",
-     view: "",
-     github: "",
-   },
+   
  ];

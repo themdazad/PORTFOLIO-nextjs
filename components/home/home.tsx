@@ -1,335 +1,659 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { Dot, Eye, Github, Mail, PhoneIcon } from "lucide-react";
-import { ProjectsData } from "@/assets/data/projects-data";
-import Link from "next/link";
-import { Navbar } from "../navigation";
+
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Dot, Eye, Github, Mail, PhoneIcon, Briefcase,
+  GraduationCap, Award, CheckCircle2,ExternalLink, Code2, Sparkles, MapPin
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Navbar } from "../navigation";
 
-gsap.registerPlugin(ScrollTrigger); // register plugin once
+gsap.registerPlugin(ScrollTrigger);
 
+// Comprehensive data extraction directly from the user's resume
+const EXPERIENCE_DATA = [
+  {
+    role: "Front-End Developer Intern",
+    company: "Acceptare Technology Pvt Ltd",
+    duration: "Aug - Dec 2025",
+    skills: ["React.js", "Next.js", "API Integration", "UI Optimization"],
+    bullets: [
+      "Responsible for managing and adding features to active client production websites.",
+      "Identified, isolated, and fixed critical UI glitches and cross-device responsiveness bugs."
+    ]
+  },
+  {
+    role: "Front-End Developer Intern",
+    company: "Sishar Global Pvt. Ltd. (B2B Startup)",
+    duration: "July - Aug 2024",
+    skills: ["PHP", "Laravel", "Git", "Responsive Design"],
+    bullets: [
+      "Assisted in the architecture and development of highly responsive consumer user interfaces using PHP and Laravel framework.",
+      "Collaborated with cross-functional team configurations using Git version control to guarantee clean deployment workflows."
+    ]
+  }
+];
+
+const PROJECTS_DATA = [
+  {
+    title: "Agentic-IoT Based Decision Support System For Smart Agriculture",
+    stack: ["GPT-4o-Mini", "Node.js", "IoT Components", "Arduino", "Raspberry Pi", "RESTful API", "MQTT Protocol"],
+    description: "Integrates physical IoT devices (sensors, actuators) with an AI-powered cloud backend to automate precise irrigation metrics, monitor live crop health, and execute intent-based operational tasks via localized NLP parsing.",
+    github: "https://github.com/themdazad",
+    view: null
+  },
+  {
+    title: "Training and Placement Cell Portal",
+    stack: ["#FullStackProject", "RBAC System", "N-Tier Architecture"],
+    description: "An advanced RBAC application featuring an N-Tier architecture (Route-Controller-Service-Model) that safeguards student and admin modules. Houses custom token middleware, automated OTP validation layers, and structural Frontend-to-Backend Service Mirroring.",
+    github: "https://github.com/themdazad",
+    view: null
+  },
+  {
+    title: "Technical Club Website",
+    stack: ["React.js", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
+    description: "Architected a dedicated institution platform featuring a custom Automated Credentialing System designed to dynamically serve verified cryptographic performance certificates to students by cleanly linking real-time backend datasets.",
+    github: "https://github.com/themdazad",
+    view: "https://www.techkshitiz.in"
+  }
+];
+
+const SKILLS_CATEGORIES = [
+  { 
+    category: "Languages & Core", 
+    items: ["JavaScript", "TypeScript", "Java", "C++", "ABAP", "Dart", "SQL"] 
+  },
+  { 
+    category: "AI & Intelligent Systems", 
+    items: ["LLM Integration", "RAG", "Agentic IoT", "Embedded Systems", "System Prompts"] 
+  },
+  { 
+    category: "Frontend & Mobile", 
+    items: ["React.js", "Next.js", "Flutter", "Redux Toolkit", "APIs Integration"] 
+  },
+  { 
+    category: "Backend & Cloud Dev", 
+    items: ["Node.js", "Express.js", "Spring Boot", "ABAP Cloud (RAP)", "Docker", "AWS Cloud", "MongoDB"] 
+  }
+];
+
+const EDUCATION_DATA = [
+  { college: "Government Engineering College, Siwan", period: "2022 - 2026", details: "B.Tech in Electrical Engineering — Bihar Engineering University, Patna", metric: "CGPA 7.47/10" },
+  { college: "Government Polytechnic, Chhapra", period: "2019 - 2022", details: "Diploma in Computer Science and Engineering — SBTE Bihar", metric: "CGPA 8.48/10" }
+];
+
+const CERTIFICATIONS_DATA = [
+  { title: "SAP ABAP Cloud Backend Developer", issuer: "Certified at BIPARD, Patna" },
+  { title: "IoT (NPTEL) — Elite Silver (86%)", issuer: "Hardware-Software integration & Real-time data parsing" },
+  { title: "Cloud Computing (NPTEL)", issuer: "Architecting scalable, highly distributed cloud infrastructure systems" }
+];
+
+export default function PortfolioPage() {
+  return (
+    <div className="bg-[#FFFFFF] min-h-screen text-[#1F1F1F] antialiased selection:bg-[#D3E3FD] selection:text-[#041E49]">
+      <Navbar />
+      <Hero />
+      {/* Massive section spacing structure built to reflect Gemini Landing Page layouts */}
+      <div className="space-y-48 md:space-y-64 lg:space-y-72 pb-48">
+        <Experience />
+        <Projects />
+        <Skills />
+        <Educations />
+        <Achievements />
+        <HireMe />
+      </div>
+    </div>
+  );
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
 export const Hero = () => {
   const scope = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax for image
-      gsap.to(".hero-avatar", {
-        y: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero-avatar",
-          start: "top bottom", // when top of avatar hits bottom of viewport
-          scrub: true, // makes it smooth and continuous
-        },
-      });
-
-      // Fade + slide in text
-      gsap.from(".hero-text", {
-        y: 50,
+      gsap.from(".hero-animate", {
+        y: 45,
         opacity: 0,
-        duration: 1,
+        duration: 1.2,
+        stagger: 0.15,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".hero-text",
-          start: "top 80%",
-        },
-      });
-
-      // Fade in button
-      gsap.from(".hero-btn", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: ".hero-btn",
-          start: "top 90%",
-        },
       });
     }, scope);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={scope} className="max-w-6xl m-auto px-6 pt-32 pb-24 md:pt-44 md:pb-36 flex flex-col items-center text-center">
+      <div className="space-y-8 max-w-5xl">
+        <div className="hero-animate inline-flex items-center gap-2 bg-[#EBF3FE] border border-[#D3E3FD] text-[#2B76E9] p-2 rounded-full text-sm font-medium">
+          {/* Avatar */}
+          <div className="relative grid justify-center hero-avatar">
+            <Image
+              className="rounded-full hover:shadow-xl transition-all duration-300"
+              src="/images/azad.jpg"
+              alt="azad-ghibli-art-image"
+              width={200}
+              height={400}
+            />
+          </div>
+          <p className="hero-animate bg-[#D3E3FD] text-[#2B76E9] p-2 rounded-full text-sm font-medium">
+            #OpenToWork
+          </p>
+        </div>
+
+        <h1 className="hero-animate text-5xl sm:text-7xl md:text-[88px] font-bold tracking-tighter text-[#1F1F1F] leading-[1.05]">
+          Clean UI Designer & <span className="bg-gradient-to-r from-[#2B76E9] to-[#5195F7] bg-clip-text text-transparent">Software Developer</span>
+        </h1>
+
+        <p className=" hero-animate text-lg sm:text-xl md:text-2xl text-[#5F6368] font-normal leading-relaxed max-w-3xl m-auto pt-2">
+          Agentic-AI • MERN • SpringBoot • Flutter • Cloud • IoT
+        </p>
+        <p className="hero-animate text-base sm:text-lg text-[#5F6368] font-normal leading-relaxed max-w-2xl m-auto">
+          Passionate about building intelligent, scalable applications with clean code and intuitive UI design.
+        </p>
+        <div className="hero-animate flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#5F6368] pt-2">
+          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-neutral-400" /> Muzaffarpur, Bihar, India</span>
+        </div>
+      </div>
+
+      <div className="hero-animate pt-12 flex flex-wrap gap-4 justify-center">
+        <Link href="https://linkedin.com/in/themdazad" target="_blank" rel="noopener noreferrer">
+          <Button className="bg-[#4285F4] hover:bg-[#3572D6] text-white font-medium text-base px-8 py-6 rounded-full shadow-none cursor-pointer">
+            Connect on LinkedIn
+          </Button>
+        </Link>
+        <Link href="https://github.com/themdazad" target="_blank" rel="noopener noreferrer">
+          <Button variant="outline" className="border-neutral-300 text-[#1F1F1F] hover:bg-neutral-50 font-medium text-base px-8 py-6 rounded-full shadow-none cursor-pointer">
+            Explore GitHub
+          </Button>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
+/* ==========================================
+   EXPERIENCE SECTION
+   ========================================== */
+export const Experience = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".exp-card-anim", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={containerRef} className="max-w-5xl m-auto px-6 w-full">
+      <div className="space-y-12 w-full">
+        <div className="flex items-center gap-3 border-b border-neutral-200 pb-4">
+          <Briefcase className="w-6 h-6 text-[#4285F4]" />
+          <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-[#1F1F1F]">Professional Practice</h2>
+        </div>
+
+        <div className="grid gap-6">
+          {EXPERIENCE_DATA.map((exp, idx) => (
+            <div key={idx} className="exp-card-anim bg-[#FAFAFA] border border-neutral-200/70 hover:border-neutral-300 rounded-2xl p-6 md:p-8 transition-all duration-300">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-200/50 pb-4 mb-4">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-medium text-[#1F1F1F]">{exp.role}</h3>
+                  <p className="text-base font-medium text-[#4285F4] mt-0.5">{exp.company}</p>
+                </div>
+                <span className="text-sm font-medium text-[#5F6368] bg-[#F1F3F4] px-3 py-1 rounded-md self-start sm:self-center">
+                  {exp.duration}
+                </span>
+              </div>
+
+              <ul className="space-y-2.5 text-base text-[#5F6368] list-disc list-inside mb-4">
+                {exp.bullets.map((bullet, i) => (
+                  <li key={i} className="leading-relaxed"><span className="text-[#1F1F1F]">{bullet}</span></li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {exp.skills.map((s) => (
+                  <span key={s} className="text-xs font-medium text-neutral-600 bg-white border border-neutral-200/80 px-2.5 py-1 rounded-md">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ==========================================
+   PROJECTS SECTION
+   ========================================== */
+export const Projects = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".project-card-anim", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={containerRef} className="max-w-7xl m-auto px-6 w-full my-12">
+      <div className="space-y-12 w-full">
+        <div className="flex items-center gap-3 border-b border-neutral-200 pb-4">
+          <Code2 className="w-6 h-6 text-[#4285F4]" />
+          <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-[#1F1F1F]">Featured Projects</h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 w-full">
+          {PROJECTS_DATA.map((item, idx) => (
+            <div key={idx} className="project-card-anim group flex flex-col space-y-5 w-full">
+              <div className="hidden relative aspect-[4/3] w-full rounded-3xl overflow-hidden bg-gradient-to-b from-[#EBF3FE] to-[#C9E0FD] flex items-center justify-center p-6 border border-neutral-100">
+                <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-sm group-hover:scale-[1.03] transition-transform duration-400 ease-out bg-white flex items-center justify-center p-8">
+                  <div className="text-center space-y-2">
+                    <p className="text-lg font-medium text-[#1F1F1F] px-2 line-clamp-2">{item.title}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 px-1">
+                <h3 className="text-2xl font-medium tracking-tight text-[#1F1F1F] group-hover:text-[#4285F4] transition-colors duration-200">
+                  {item.title}.
+                </h3>
+
+                <p className="text-base text-[#5F6368] leading-relaxed line-clamp-3">
+                  {item.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {item.stack.map((data) => (
+                    <span key={data} className="text-xs font-medium text-[#4285F4] bg-[#EBF3FE] px-2.5 py-1 rounded-full">
+                      {data}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-4 pt-4 border-t border-neutral-100">
+                  <Link href={item.github} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#5F6368] hover:underline flex items-center gap-1.5">
+                    <Github className="w-4 h-4" /> Repository
+                  </Link>
+                  {item.view && (
+                    <Link href={item.view} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#4285F4] hover:underline flex items-center gap-1.5">
+                      <Eye className="w-4 h-4" /> Live System <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ==========================================
+   SKILLS SECTION
+   ========================================== */
+export const Skills = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".skill-row-anim", {
+        opacity: 0,
+        x: 35,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={containerRef} className="max-w-7xl m-auto px-6 w-full my-12">
+      <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5 space-y-4">
+          <h2 className="text-3xl sm:text-4xl md:text-[48px] font-medium tracking-tight text-[#1F1F1F] leading-tight">
+            Comprehensive Technical Skills.
+          </h2>
+          <p className="text-base sm:text-lg text-[#5F6368] leading-relaxed">
+            From deterministic web applications and native mobile frameworks to physical cloud-connected endpoints and robust distributed systems.</p>
+        </div>
+
+        <div className="lg:col-span-7 bg-gradient-to-br from-[#F6F9FC] to-[#EEF2F6] border border-neutral-200/50 rounded-3xl p-6 sm:p-8 grid gap-4">
+          {SKILLS_CATEGORIES.map((cat, idx) => (
+            <div key={idx} className="skill-row-anim bg-white border border-neutral-100 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-3xs">
+              <div className="flex items-center gap-2 min-w-[140px]">
+                <Dot className="w-5 h-5 text-[#4285F4]" />
+                <h4 className="text-base font-semibold text-[#1F1F1F]">{cat.category}</h4>
+              </div>
+              <div className="flex flex-wrap gap-2 sm:justify-end">
+                {cat.items.map((skill) => (
+                  <span key={skill} className="text-xs font-medium text-neutral-700 bg-neutral-50 px-2.5 py-1 rounded-md border border-neutral-100">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ==========================================
+   EDUCATION TIMELINE SECTION
+   ========================================== */
+export const Educations = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const progressLineRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Progress line drawing animation
+      gsap.fromTo(
+        progressLineRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          transformOrigin: "top center",
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 75%",
+            end: "bottom 75%",
+            scrub: true,
+          },
+        }
+      );
+
+      // 2. Clear, foolproof fade-in for the timeline rows
+      gsap.from(".timeline-item", {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={scope} className="bg-white w-full">
-      <Navbar />
+    <section ref={containerRef} className="max-w-4xl m-auto px-6 w-full my-12">
+      <div className="space-y-16 w-full">
+        <div className="flex flex-col items-center text-center space-y-3">
+          <GraduationCap className="w-8 h-8 text-[#4285F4]" />
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium tracking-tight text-[#1F1F1F]">
+            Academic Engineering Paths
+          </h2>
+        </div>
 
-      <section className="max-w-screen-2xl m-auto px-4 flex flex-col justify-center gap-12 items-center py-12 md:py-32">
-        {/* Avatar */}
-        <div className="relative grid justify-center hero-avatar">
-          <Image
-            className="rounded-full hover:shadow-xl transition-all duration-300"
-            src="/images/azad.jpg"
-            alt="azad-ghibli-art-image"
-            width={200}
-            height={400}
+        {/* Timeline Engine Container */}
+        <div className="relative w-full mt-12">
+          {/* Permanent Background Guideline */}
+          <div className="absolute left-[15px] top-3 bottom-3 w-[2px] bg-neutral-100 rounded-full" />
+
+          {/* Animated Graphic Gradient Fill Line */}
+          <div
+            ref={progressLineRef}
+            className="absolute left-[15px] top-3 bottom-3 w-[2px] bg-[#4285F4] rounded-full"
           />
-          <Link href="https://githhub.com/themdazad" target="_blank">
-          <span className="absolute left-[45%] top-[80%] -rotate-12 bg-stone-800/20 hover:bg-stone-800/40 border-1 border-stone-800 backdrop-blur-md hover:shadow-2xl cursor-github inline-flex gap-2 text-sm text-stone-100 tracking-wider p-2 px-3 pr-6 rounded-full text-nowrap transition-all duration-300">
-            <Github /> @themdazad
-          </span>
-          </Link>
 
-        </div>
+          <div className="space-y-12">
+            {EDUCATION_DATA.map((edu, idx) => (
+              <div key={idx} className="timeline-item relative flex items-start pl-12 group">
+                {/* Central Circle Node */}
+                <div className="absolute left-0 top-2.5 w-8 h-8 rounded-full bg-white border-2 border-neutral-200 group-hover:border-[#4285F4] transition-colors duration-300 flex items-center justify-center z-10 shadow-3xs">
+                  <div className="w-2.5 h-2.5 rounded-full bg-neutral-200 group-hover:bg-[#4285F4] transition-colors duration-300" />
+                </div>
 
-        {/* Heading & text */}
-        <div className="space-y-10 text-center hero-text">
-          <h1 className="text-5xl md:text-7xl font-extrabold">
-            Hi,
-            <br /> I&apos;m designer &amp; developer
-          </h1>
-          <p>
-            I have 2+ years of experience in UI designing and frontend
-            development working on useful and mindful products together with
-            startups and remote clients.
-          </p>
-        </div>
-
-        {/* Button */}
-        <Link href="https://linkedin.com/in/themdazad" target="_blank">
-          <Button
-            className="hero-btn cursor-pointer p-6 hover:shadow-xl bg-neutral-800 text-white rounded-3xl transition-all duration-300"
-            variant="outline"
-          >
-            LinkedIn
-          </Button>
-        </Link>
-      </section>
-    </div>
-  );
-};
-
-export const Projects = () => {
-  return (
-    <section className=" mx-[5%] bg-neutral-300 rounded-4xl md:rounded-[4rem] gap-6 items-center py-12 ">
-      <div className="max-w-screen-2xl m-auto px-4 space-y-10 w-full">
-        {/* 1.Page title  */}
-        <span className=" bg-stone-800 backdrop-blur-md inline-flex text-stone-100 p-2 px-3 pr-6 rounded-full text-nowrap">
-          <Dot />
-          WORKS/PROJECTS
-        </span>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-10 w-full">
-          {/* 2.Project card  */}
-          {ProjectsData.map((item) => {
-            return (
-              <div
-                key={item._id}
-                className="group aspect-video bg-white relative overflow-hidden rounded-3xl shadow-xl transition-all duration-300"
-              >
-                <Image
-                  src={item.image}
-                  alt={"azad-project-thumbnail"}
-                  width={500}
-                  height={100}
-                  className="absolute w-full h-full z-8 object-contain"
-                />
-                {/* hoverd: details card  */}
-                <div className="absolute bg-blue-100 dark:bg-stone-800 grid place-content-center z-9 backdrop-blur-xl backdrop-saturate-0 p-6 space-y-4 h-full w-full -top-full group-hover:top-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="space-y-2 text-center">
-                    <h1 className="text-xl font-bold">{item.title}</h1>
-                    <div className="inline-flex gap-2">
-                      {item.skills.map((data) => {
-                        return <p key={data}>{data}</p>;
-                      })}
-                    </div>
+                {/* Content Block Card */}
+                <div className="bg-[#FFFFFF] border border-neutral-200/80 rounded-2xl p-6 sm:p-8 shadow-3xs group-hover:border-neutral-300 transition-all duration-300 flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <span className="text-xs font-medium text-[#4285F4] bg-[#EBF3FE] px-2.5 py-1 rounded-md inline-block sm:hidden">
+                      {edu.period}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-medium text-[#1F1F1F]">
+                      {edu.college}
+                    </h3>
+                    <p className="text-base text-[#5F6368] font-normal leading-relaxed">
+                      {edu.details}
+                    </p>
                   </div>
 
-                  <div className="space-x-2 flex justify-center">
-                    {!!item?.view && (
-                      <Link href={item.view} target="_blank">
-                        <Button
-                          className="hover:shadow-xl bg-white cursor-pointer rounded-3xl"
-                          variant="outline"
-                        >
-                          <Eye />
-                          Live
-                        </Button>
-                      </Link>
-                    )}
-
-                    {!!item?.github && (
-                      <Link href={item.github} target="_blank">
-                        <Button
-                          className="hover:shadow-xl cursor-pointer rounded-3xl"
-                          variant="outline"
-                        ><Github/></Button>
-                      </Link>
-                    )}
+                  <div className="flex sm:flex-col items-start sm:items-end justify-between sm:justify-center gap-3 shrink-0 border-t sm:border-t-0 border-neutral-100 pt-4 sm:pt-0">
+                    <span className="text-xs font-medium text-[#5F6368] bg-[#F1F3F4] px-3 py-1 rounded-md hidden sm:inline-block">
+                      {edu.period}
+                    </span>
+                    <span className="text-sm font-semibold text-[#041E49] bg-[#D3E3FD] px-3 py-1 rounded-md">
+                      {edu.metric}
+                    </span>
                   </div>
                 </div>
-                <div className="absolute z-10 px-3 py-1 flex dark:bg-stone-800 text-white bg-neutral-600 rounded-tr-3xl opacity-100 group-hover:opacity-0 min-w-max -bottom-0 group-hover:-bottom-full transition-all duration-500 ">
-                  <p className=" px-2">{item.title}</p>
-                </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
+      </div>
+    </section>
+  );
+};
+/* ==========================================
+   CERTIFICATIONS & RESPONSIBILITIES SECTION
+   ========================================== */
+   export const SapCertification = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Clean stagger animation for the text content elements
+      gsap.from(".sap-text-anim", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      // Smooth slide-up fade for the certificate graphic mockup panel
+      gsap.from(".sap-graphic-anim", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="max-w-7xl m-auto px-6 w-full my-24">
+      {/* 50/50 Split Grid mirroring the blueprint layout in A489E0CE-2772-4510-A063-1B0463F693FE.png */}
+      <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
+        
+        {/* Left Column: Premium Text Details Side (Half Width) */}
+        <div className="lg:col-span-6 space-y-6 md:space-y-8">
+          <div className="sap-text-anim p-2 bg-[#EBF3FE] border border-[#D3E3FD] rounded-xl inline-flex items-center justify-center text-[#4285F4]">
+            <Award className="w-6 h-6" />
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="sap-text-anim text-3xl sm:text-5xl md:text-[54px] font-medium tracking-tight text-[#1F1F1F] leading-[1.1]">
+              SAP ABAP Cloud Backend Developer
+            </h2>
+            <p className="sap-text-anim text-lg sm:text-xl text-[#5F6368] font-normal leading-relaxed">
+              Certified by SEED Infotech at BIPARD, Patna. Developed enterprise-ready backend logic covering ABAP Cloud fundamentals, RESTful Application Programming (RAP), and modern Core Data Services (CDS) workflows.
+            </p>
+          </div>
+
+          {/* Validation Bullet Details for high scannability */}
+          <div className="sap-text-anim space-y-3.5 pt-2">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#4285F4] shrink-0" />
+              <span className="text-base font-medium text-[#1F1F1F]">ABAP RESTful Application Programming (RAP)</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#4285F4] shrink-0" />
+              <span className="text-base font-medium text-[#1F1F1F]">Data Modeling via Core Data Services (CDS) Views</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#4285F4] shrink-0" />
+              <span className="text-base font-medium text-[#1F1F1F]">Cloud-Ready Enterprise Extensions & API Services</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Premium Certificate Image Mockup Panel Side (Half Width) */}
+        <div className="sap-graphic-anim lg:col-span-6 w-full">
+          <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-[32px] overflow-hidden bg-gradient-to-tr from-[#EBF3FE] via-[#C9E0FD] to-[#A8C7FA] flex items-center justify-center border border-neutral-100 shadow-sm">
+            
+            {/* The structural container simulating the smooth 3D layer perspective seen in A489E0CE-2772-4510-A063-1B0463F693FE.png */}
+            <div className="relative w-full h-full rounded-xl overflow-hidden shadow-xl bg-white border border-neutral-200/40 transition-transform duration-500 hover:scale-[1.02]">
+              <Image 
+                src="/images/sap-abap-certification.webp" 
+                alt="SAP ABAP Cloud Backend Developer Certificate"
+                fill
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
 
-export const Skills = () => {
+export const Achievements = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".achieve-card-anim", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-10 lg:py-32">
-      <div className="max-w-screen-2xl m-auto px-4 flex flex-col gap-6 justify-center items-center space-y-6">
-        {/* page title  */}
-        <span className=" bg-stone-800 backdrop-blur-md inline-flex text-stone-100 p-2 px-3 pr-6 rounded-full text-nowrap">
-          <Dot />
-          SKILLS
-        </span>
-        <div className="grid lg:grid-cols-4 gap-6">
-          {[
-            {
-              _id: 1,
-              title: "UI/UX Designing",
-              icons: ["/icons/figma.svg"],
-            },
-            {
-              _id: 2,
-              title: "Frontend Development",
-              icons: [
-                "/icons/javascript.svg",
-                "/icons/react.svg",
-                "/icons/nextjs.svg",
-                "/icons/tailwind.svg",
-              ],
-            },
-            {
-              _id: 3,
-              title: "Backend Development",
-              icons: [
-                "/icons/nodejs.svg",
-                "/icons/mongodb.svg",
-                "/icons/mysql.svg",
-              ],
-            },
-            {
-              _id: 4,
-              title: "Tools",
-              icons: [
-                "/icons/github.svg",
-                "/icons/git.svg",
-                "/icons/vercel.svg",
-              ],
-            },
-          ].map((value) => {
-            return (
-              <div
-                key={value._id}
-                className="grid place-content-center z-9 p-6 space-y-6 h-full w-full transition-all duration-300"
-              >
-                <div className="space-y-4 text-center ">
-                  <h1 className="text-xl font-extrabold">{value.title}</h1>
-                </div>
-                <div className="flex gap-6">
-                  {value.icons.map((icon) => {
-                    return (
-                      <Image
-                        className="object-contain bg-white h-16 w-16"
-                        key={icon}
-                        src={icon}
-                        height={80}
-                        width={80}
-                        alt="icon"
-                      />
-                    );
-                  })}
-                </div>
+    <section ref={containerRef} className="max-w-6xl m-auto px-6 w-full">
+      <div className="grid md:grid-cols-2 gap-12 w-full">
+        {/* Left Column: Certifications */}
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 border-b border-neutral-200 pb-4">
+            <Award className="w-6 h-6 text-[#4285F4]" />
+            <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-[#1F1F1F]">Verified Credentials</h2>
+          </div>
+          <div className="space-y-4">
+            {CERTIFICATIONS_DATA.map((cert, i) => (
+              <div key={i} className="achieve-card-anim p-5 bg-neutral-50/60 border border-neutral-200/60 rounded-xl space-y-1">
+                <h4 className="text-base font-semibold text-[#1F1F1F]">{cert.title}</h4>
+                <p className="text-sm text-[#5F6368]">{cert.issuer}</p>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-};
-export const Educations = () => {
-  return (
-    <section className=" mx-[5%] bg-neutral-300 rounded-4xl md:rounded-[4rem] gap-6 items-center py-12 ">
-      <div className="max-w-screen-2xl m-auto px-4 space-y-10 w-full">
-        {/* 1.Page title  */}
-        <span className="sticky top-6 bg-stone-800 backdrop-blur-md inline-flex text-stone-100 p-2 px-3 pr-6 rounded-full text-nowrap">
-          <Dot /> EDUCATIONS
-        </span>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6 w-full">
-          {/* 2.Education details  */}
-          {[
-            {
-              college: "Government Engineering College, Siwan ",
-              duration: "2022-26",
-              degree: "Btech",
-              branch: "Electrical Engineering",
-              board: "BEU Patna",
-              marks: "CGPA 7.22/10",
-            },
-            {
-              college: "Government Polytechnic College, Chhapra ",
-              duration: "2019-22",
-              degree: "Diploma",
-              branch: "Computer Science and Engineering",
-              board: "SBTE Bihar",
-              marks: "CGPA 8.48/10",
-            },
-            {
-              college: "Bihar School Examination Board, Patna ",
-              duration: "2017-19",
-              degree: "Intermediate",
-              branch: "Science (PCM)",
-              board: "",
-              marks: "Marks 76.4%",
-            },
-          ].map((value, i) => {
-            return (
-              <div key={i} className="btech max-sm:text-center">
-                <b>
-                  {value.college}- ({value.duration})
-                </b>
-                <br />
-                <i>
-                  {value.degree} in {value.branch} - {value.board}
-                </i>{" "}
-                <br />
-                <strong>{value.marks}</strong>
-              </div>
-            );
-          })}
-        </div>
+
       </div>
     </section>
   );
 };
 
+/* ==========================================
+   HIREME FOOTER SECTION
+   ========================================== */
 export const HireMe = () => {
   return (
-    <section className="grid justify-center text-center font-extrabold space-y-12 py-32">
-      <h1 className="text-5xl md:text-7xl ">
-        Hire me <br /> for you next <br /> projects
-      </h1>
-      <div className="buttons  space-x-4">
-        <a href="mailto:collezian@gmail.com" target="_blank">
-          <Button
-            className="cursor-pointer p-6 hover:shadow-xl bg-neutral-800 text-white rounded-3xl transition-all duration-300"
-            variant="outline"
-          >
-            <Mail />
-            collezian@gmail.com
-          </Button>
-        </a>
-        <a href="phone:+91-9110172886" target="_blank">
-          <Button
-            className="cursor-pointer p-6 hover:shadow-xl rounded-3xl transition-all duration-300"
-            variant="outline"
-          >
-            <PhoneIcon />
-            Whatsapp
-          </Button>
-        </a>
+    <section className="max-w-4xl m-auto px-6 w-full my-24">
+      <div className="border border-neutral-200/60 rounded-3xl p-10 md:p-16 text-center bg-[#FAFAFA] space-y-6">
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-[#1F1F1F]">
+          Let's build together.
+        </h2>
+        <p className="text-base sm:text-lg text-[#5F6368] max-w-xl m-auto leading-relaxed">
+          Ready to collaborate on polished interfaces, thoughtful user experiences, and reliable web development.
+        </p>
+        <div className="flex flex-wrap justify-center gap-4 pt-2">
+          <Link href="mailto:themdazad.2002@gmail.com">
+            <Button className="bg-[#4285F4] hover:bg-[#3572D6]  text-white text-sm font-medium px-6 py-5 rounded-full flex items-center gap-2 cursor-pointer shadow-none">
+              <Mail className="w-4 h-4" /> themdazad.2002@gmail.com
+            </Button>
+          </Link>
+          <Link href="tel:+919110172886">
+            <Button className="bg-[#FFFFFF] hover:bg-[#F1F3F4] text-[#1F1F1F] border border-neutral-300 text-sm font-medium px-6 py-5 rounded-full flex items-center gap-2 cursor-pointer shadow-none" variant="outline">
+              <PhoneIcon className="w-4 h-4" /> +91 91XXXXXX86
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

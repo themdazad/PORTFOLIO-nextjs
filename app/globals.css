@@ -1,5 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+
+/* Apply it globally or create a specific class */
+:root {
+  --font-google-sans: 'Google Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-google-sans);
+}
+
+/* Your custom utility class from the image */
+.google-sans {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100; /* Choose a weight between 400 and 700 */
+  font-style: normal;
+  font-variation-settings: "GRAD" 0;
+}
+
+
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,6 +29,7 @@ html{
 }
 
 @theme inline {
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -123,4 +145,15 @@ html{
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+
+.google-sans {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100-700;
+  font-style: normal;
+  font-variation-settings:
+    "GRAD" 0;
 }
