@@ -159,7 +159,7 @@ export const Hero = () => {
           Passionate about building intelligent, scalable applications with clean code and intuitive UI design.
         </p>
         <div className="hero-animate flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#5F6368] pt-2">
-          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-neutral-400" /> Muzaffarpur, Bihar, India</span>
+          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-neutral-400" /> Vaishali, Bihar, India</span>
         </div>
       </div>
 
