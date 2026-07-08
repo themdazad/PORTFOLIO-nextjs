@@ -217,7 +217,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section ref={scope} className="max-w-6xl m-auto px-6 pt-32 pb-24 md:pt-44 md:pb-36 flex flex-col items-center text-center select-none">
+    <section ref={scope} className="max-w-6xl m-auto px-6 pt-16 pb-24 md:pb-36 flex flex-col items-center text-center select-none">
       <div className="space-y-8 max-w-5xl">
         <div ref={avatarRef} className="hero-badge inline-flex items-center gap-2 bg-[#EBF3FE] dark:bg-blue-950/40 border border-[#D3E3FD] dark:border-blue-900/50 text-[#2B76E9] dark:text-blue-400 p-2 rounded-full text-sm font-medium cursor-pointer will-change-transform">
           <div className="relative grid justify-center hero-avatar">
@@ -243,7 +243,7 @@ export const Hero = () => {
 
         <div className="hero-desc space-y-3">
           <p className="text-lg sm:text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 font-normal tracking-tight">
-            Agentic-AI • MERN • SpringBoot • Flutter • Cloud • IoT
+            Agentic-AI • MERN • SpringBoot • Cloud • IoT
           </p>
           <p className="text-base sm:text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl m-auto">
             Passionate about building intelligent, scalable applications with clean code and intuitive UI design.
