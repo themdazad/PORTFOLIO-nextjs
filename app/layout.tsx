@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/navigation";
+import { Chatbot } from "@/components/Chatbot";
 
 export const metadata: Metadata = {
   title: "Md. Azad - Software Developer",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Navbar/>
         {children}
+         <Chatbot />
       </body>
     </html>
   );
