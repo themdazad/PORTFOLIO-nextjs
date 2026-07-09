@@ -58,13 +58,20 @@ const PROJECTS_DATA = [
     description: "Architected a dedicated institution platform featuring a custom Automated Credentialing System designed to dynamically serve verified cryptographic performance certificates to students by cleanly linking real-time backend datasets.",
     github: "https://github.com/themdazad",
     view: "https://www.techkshitiz.in"
+  },
+  {
+    title: "Certificate Management and Generation",
+    stack: ["React.js", "Node.js", "MongoDB"],
+    description: "Built a certificate generation and verification system that issues signed PDF certificates, stores records in MongoDB, provides secure access links and supports bulk uploads.",
+    github: "https://github.com/themdazad/Certificate-Verification-System",
+    view: null
   }
 ];
 
 const SKILLS_CATEGORIES = [
   { 
     category: "Languages & Core", 
-    items: ["JavaScript", "TypeScript", "Java", "C++", "ABAP", "Dart", "SQL"] 
+    items: ["JavaScript", "TypeScript", "Java", "C++", "ABAP", "SQL"] 
   },
   { 
     category: "AI & Intelligent Systems", 
@@ -72,7 +79,7 @@ const SKILLS_CATEGORIES = [
   },
   { 
     category: "Frontend & Mobile", 
-    items: ["React.js", "Next.js", "Flutter", "Redux Toolkit", "APIs Integration"] 
+    items: ["React.js", "Next.js", "React Native", "Redux Toolkit", "APIs Integration"] 
   },
   { 
     category: "Backend & Cloud Dev", 
@@ -183,7 +190,7 @@ export const Hero = () => {
       }
 
       // Magnetic Attraction effect on main buttons
-      const interactiveBtns = buttonsRef.current?.querySelectorAll(".hero-btn");
+      const interactiveBtns = buttonsRef.current?.querySelectorAll(".magnetic-btn");
       interactiveBtns?.forEach((btn) => {
         const mouseMoveBtn = (e: Event) => {
           const me = e as MouseEvent;
@@ -257,12 +264,12 @@ export const Hero = () => {
       </div>
 
       <div ref={buttonsRef} className="pt-12 flex flex-wrap gap-4 justify-center items-center">
-        <Link href="https://linkedin.com/in/themdazad" target="_blank" rel="noopener noreferrer" className="hero-btn block">
+        <Link href="https://linkedin.com/in/themdazad" target="_blank" rel="noopener noreferrer" className="magnetic-btn block">
           <Button className="bg-[#4285F4] hover:bg-[#3572D6] dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium text-base px-8 py-6 rounded-full shadow-none cursor-pointer">
             Connect on LinkedIn
           </Button>
         </Link>
-        <Link href="https://github.com/themdazad" target="_blank" rel="noopener noreferrer" className="hero-btn block">
+        <Link href="https://github.com/themdazad" target="_blank" rel="noopener noreferrer" className="magnetic-btn block">
           <Button variant="outline" className="border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium text-base px-8 py-6 rounded-full shadow-none cursor-pointer bg-transparent">
             Explore GitHub
           </Button>
@@ -399,7 +406,7 @@ export const Projects = () => {
                   </Link>
                   {item.view && (
                     <Link href={item.view} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#4285F4] dark:text-blue-400 hover:underline flex items-center gap-1.5">
-                      <Eye className="w-4 h-4" /> Live System <ExternalLink className="w-3 h-3" />
+                      <Eye className="w-4 h-4" /> Live <ExternalLink className="w-3 h-3" />
                     </Link>
                   )}
                 </div>
