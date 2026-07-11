@@ -16,7 +16,7 @@ export const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     { 
       sender: "ai", 
-      text: "Hello! I'm Azad :) How can I help you today?" 
+      text: "Hello! How can I help you today?" 
     },
   ]);
   
@@ -70,6 +70,7 @@ export const Chatbot: React.FC = () => {
     gsap.to(".custom-star-mesh", { rotate: 0, duration: 0.3, ease: "power1.out" });
   };
 
+  // HANDLER: Sends standard payload and hooks up actual tab redirects
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -87,6 +88,13 @@ export const Chatbot: React.FC = () => {
       });
       const data = await response.json();
 
+      // --- CRITICAL FIX: Intercept the navigation command and trigger the browser action ---
+      if (data.action === "trigger_navigation" && Array.isArray(data.urls)) {
+        data.urls.forEach((url: string) => {
+          window.open(url, "_blank", "noopener,noreferrer");
+        });
+      }
+
       if (data.text) {
         setMessages((prev) => [...prev, { sender: "ai", text: data.text }]);
       } else {
@@ -102,7 +110,7 @@ export const Chatbot: React.FC = () => {
   return (
     <div className={`fixed bottom-6 right-6 z-50 font-sans antialiased `}>
       
-      {/* 1. Floating Action Button (FAB) with Your Custom AI Star SVG */}
+      {/* 1. Floating Action Button (FAB) */}
       <button
         ref={fabRef}
         onClick={() => setIsOpen(!isOpen)}
@@ -128,7 +136,7 @@ export const Chatbot: React.FC = () => {
         )}
       </button>
 
-      {/* 2. Premium macOS Glassmorphic Panel Window */}
+      {/* 2. macOS Glassmorphic Panel Window */}
       <div
         ref={windowRef}
         style={{ opacity: 0, scale: 0.92, pointerEvents: "none" }}
@@ -136,16 +144,12 @@ export const Chatbot: React.FC = () => {
           bg-white/70 dark:bg-neutral-900/75 backdrop-blur-xl 
           border border-white/40 dark:border-neutral-800/80"
       >
-        {/* macOS Top Header Bar (Matching Your Screenshot) */}
+        {/* macOS Top Header Bar */}
         <div className="p-3 flex items-center justify-between select-none bg-neutral-100/50 dark:bg-neutral-950/40 border-b border-neutral-200/50 dark:border-neutral-800/50">
-          
-          
-          {/* Screenshot Match Header: @themdazad: ~/assistant */}
           <div className="font-mono text-[11px] tracking-wide flex items-center gap-1.5 bg-neutral-200/50 dark:bg-neutral-900/60 px-3 py-1 rounded-md border border-neutral-300/30 dark:border-neutral-800/40 text-neutral-600 dark:text-neutral-400">
             <span>@themdazad:</span>
             <span className="text-blue-500 dark:text-indigo-400">~/assistant</span>
           </div>
-
         </div>
 
         {/* Chat Messages Dynamic Stream Container */}
