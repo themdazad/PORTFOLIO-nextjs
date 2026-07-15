@@ -2,6 +2,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
@@ -111,7 +112,7 @@ export default function ProjectDetail() {
                   key={idx} 
                   className="overflow-hidden rounded-2xl border border-neutral-200/70 dark:border-neutral-800/80 bg-neutral-50 dark:bg-neutral-900/40 p-2 transition-colors"
                 >
-                  <img 
+                  <Image 
                     src={url} 
                     alt={`${project.title} Render ${idx + 1}`} 
                     className="w-full h-48 md:h-64 object-cover rounded-xl transition hover:scale-[1.01] duration-300" 

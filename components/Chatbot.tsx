@@ -101,6 +101,7 @@ export const Chatbot: React.FC = () => {
         setMessages((prev) => [...prev, { sender: "ai", text: "Something went wrong." }]);
       }
     } catch (error) {
+      console.log("Error sending message:", error);
       setMessages((prev) => [...prev, { sender: "ai", text: "Network error." }]);
     } finally {
       setIsLoading(false);

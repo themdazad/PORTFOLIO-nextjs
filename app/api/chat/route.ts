@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { CHATBOT_PROMPT } from "./system_prompt";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -11,17 +11,20 @@ const SOCIAL_LINKS: Record<string, string> = {
   instagram: "https://instagram.com/themdazad",
 };
 
-const socialNavigationTool: any = {
+
+  const socialNavigationTool = {
   functionDeclarations: [
     {
       name: "openSocialMediaAccount",
-      description: "Call this function when the user explicitly asks to visit, open, view, or check Azad's social media links like LinkedIn, Instagram or GitHub.",
+      description:
+        "Call this function when the user explicitly asks to visit, open, view, or check Azad's social media links.",
       parameters: {
-        type: "OBJECT",
+        type: Type.OBJECT,
         properties: {
           platform: {
-            type: "STRING",
-            description: "The name of the platform requested by the user. Supported values: 'linkedin', 'github', 'instagram', 'all'.",
+            type: Type.STRING,
+            description:
+              "Supported values: linkedin, github, instagram, all",
           },
         },
         required: ["platform"],

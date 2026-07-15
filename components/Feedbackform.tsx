@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 export default function Feedbackform() {
   const [rating, setRating] = useState<number>(0);
