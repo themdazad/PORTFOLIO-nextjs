@@ -10,7 +10,7 @@ import Feedbackform from '@/components/Feedbackform';
 import { Project } from '@/types/projects';
 import { Github } from 'lucide-react';
 
-export default function ProjectDetail() {
+export default function Projects() {
   const projectsData = PORTFOLIO_DATA.projects;
   const params = useParams();
   const router = useRouter();
@@ -113,6 +113,8 @@ export default function ProjectDetail() {
                   className="overflow-hidden rounded-2xl border border-neutral-200/70 dark:border-neutral-800/80 bg-neutral-50 dark:bg-neutral-900/40 p-2 transition-colors"
                 >
                   <Image 
+                    width={0}
+                    height={0}
                     src={url} 
                     alt={`${project.title} Render ${idx + 1}`} 
                     className="w-full h-48 md:h-64 object-cover rounded-xl transition hover:scale-[1.01] duration-300" 

@@ -26,18 +26,17 @@ export const PORTFOLIO_DATA = {
 
   projects:[
       {
-        id: "autonomous-agentic-portfolio-assistant",
-        title: "Autonomous Agentic Portfolio Assistant",
+        id: "agentic-portfolio-assistant",
+        title: "Personal Portfolio",
         tagline: "An AI-powered portfolio assistant with autonomous browser actions.",
         description:
-          "Designed and engineered a premium macOS-inspired glassmorphic portfolio experience with fluid GSAP animations, interactive canvas effects, and an Agentic AI pipeline powered by Gemini Function Calling via OpenRouter. The assistant understands user intent and can autonomously execute browser actions such as navigating across multiple social platforms.",
+          "Designed a premium portfolio experience with fluid GSAP animations, interactive canvas effects, and an Agentic AI pipeline powered by Gemini. The assistant understands user intent and can autonomously execute browser actions such as navigating across multiple social platforms.",
         tech: [
           "Next.js",
           "TypeScript",
           "Google GenAI SDK",
           "GSAP",
           "Tailwind CSS",
-          "OpenRouter"
         ],
         screenshots: [
           "https://placehold.co/600x400",
@@ -45,7 +44,7 @@ export const PORTFOLIO_DATA = {
           "https://placehold.co/600x400"
         ],
         github: "",
-        live: ""
+        live: "https://themdazad.vercel.app/"
       },
       {
         id: "ai-decision-support-system-smart-agriculture",
@@ -67,17 +66,13 @@ export const PORTFOLIO_DATA = {
         live: ""
       },
       {
-        id: "tnp-cell-website-gec-siwan",
-        title: "Training and Placement (TnP) Cell Website for GEC Siwan",
+        id: "tnp-cell-portal",
+        title: "Training and Placement Cell Portal",
         tagline: "Placement portal with an AI-powered career assistant.",
         description:
           "Developed a modern Training & Placement portal featuring student, recruiter, and administrator dashboards. Integrated a Retrieval-Augmented Generation (RAG) based AI assistant to provide career guidance, placement resources, and company-specific information.",
         tech: [
-          "Next.js",
-          "React",
-          "Express.js",
-          "RAG",
-          "MongoDB"
+          "MERN",
         ],
         screenshots: [
           "https://placehold.co/600x400",
@@ -85,28 +80,24 @@ export const PORTFOLIO_DATA = {
           "https://placehold.co/600x400"
         ],
         github: "",
-        live: ""
+        live: "https://training-and-placement-cell-gec-siwan.vercel.app/"
       },
       {
-        id: "mern-ecommerce-app",
-        title: "E-Commerce App using MERN",
-        tagline: "Full-stack shopping platform with secure payments.",
+        id: "techkshitiz-website",
+        title: "Technical Club Website",
+        tagline: "Modern web platform for the technical club.",
         description:
-          "A complete MERN-stack e-commerce application featuring user authentication, product management, shopping cart functionality, order tracking, and payment gateway integration for a seamless online shopping experience.",
+          "A responsive website for the technical club, featuring event announcements, member profiles, and resource sharing.",
         tech: [
-          "MongoDB",
-          "Express.js",
-          "React",
-          "Node.js",
-          "JWT",
-          "Stripe"
+          "MERN",
+          "GSAP",
         ],
         screenshots: [
           "https://placehold.co/600x400",
           "https://placehold.co/600x400"
         ],
         github: "",
-        live: ""
+        live: "https://www.techkshitiz.in/"
       }
   ],
   education: [
@@ -115,7 +106,7 @@ export const PORTFOLIO_DATA = {
 ],
 experience: [
   {
-    role: "Front-End Developer Intern",
+    role: "Full-Stack Developer Intern",
     company: "Acceptare Technology Pvt Ltd",
     duration: "Aug - Dec 2025",
     skills: ["React.js", "Next.js", "API Integration", "UI Optimization"],
