@@ -6,7 +6,6 @@ import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { SapCertification } from "./components/SapCertification";
 import { Educations } from "./components/Educations";
-import { Achievements } from "./components/Achievements";
 import { HireMe } from "./components/HireMe";
 
 export default function HomePage() {
@@ -19,7 +18,6 @@ export default function HomePage() {
         <Projects />
         <Educations />
         <SapCertification />
-        <Achievements />
         <HireMe />
       </div>
     </div>
